@@ -4,11 +4,12 @@ import "./globals.css";
 import { Providers } from "./provider";
 import { Header } from "./header";
 import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Pair finder",
+  title: "Pair Finder",
   description: "Find the perfect pair for valuable dicussion across globe",
 };
 
@@ -21,9 +22,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
       <Providers>
+      <Toaster />
         <NextTopLoader />
         <Header/>
+      <div className="container mx-auto" >
       {children}
+      </div>
       </Providers>
       </body>
     </html>

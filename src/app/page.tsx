@@ -20,7 +20,7 @@ export default function LandingPage() {
           <div className="text-center">
             <Image
               className="inline-block"
-              src="/icon.png"
+              src="/logo.png"
               width="200"
               height="200"
               alt="dev finder logo"
