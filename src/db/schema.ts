@@ -1,6 +1,5 @@
 import { sql } from "drizzle-orm"
 import {
-    boolean,
     timestamp,
     pgTable,
     text,
@@ -9,12 +8,7 @@ import {
     uuid,
   } from "drizzle-orm/pg-core"
   import type { AdapterAccount } from "next-auth/adapters"
-   
-  export const testing = pgTable("testing" , {
-    id: text("id").notNull().primaryKey(),
-    name: text("name"),
-})
-   
+      
   export const users = pgTable("user", {
     id: text("id")
       .primaryKey()
