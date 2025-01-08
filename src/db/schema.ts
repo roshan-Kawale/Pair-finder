@@ -6,6 +6,7 @@ import {
     primaryKey,
     integer,
     uuid,
+    smallint,
   } from "drizzle-orm/pg-core"
   import type { AdapterAccount } from "next-auth/adapters"
       
@@ -75,8 +76,10 @@ import {
       .references(() => users.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
     description: text("description"),
-    tags: text("tags").notNull(),
-    githubRepo: text("githubRepo"),
+    tags: text("tags").array().notNull(),
+    language: text("language").array(),
+    level : text("level"),
+    maximumPeople : smallint("maximumPeople").default(2),
   });
 
   export type Room = typeof room.$inferSelect;

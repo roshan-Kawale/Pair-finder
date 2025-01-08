@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { Room } from "@/db/schema";
 import {
   Form,
   FormControl,
@@ -17,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createRoomAction } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
@@ -42,7 +42,7 @@ const formSchema = z.object({
   maximumPeople: z.number().min(2).max(100),
 })
  
-export function CreateRoomForm() {
+export function RoomForm({ room , onSubmit }: { room?: Room; onSubmit: (values: Room) => void; }) {
     const { toast } = useToast();
     const router = useRouter();
     const [tags, setTags] = useState<string[]>([])
@@ -51,23 +51,27 @@ export function CreateRoomForm() {
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        name: "",
-        description: "",
-        tags: [],
-        language: [],
-        level: "",
-        maximumPeople: 10,
+        name: room?.name,
+        description:  room?.description ?? "",
+        tags: room?.tags || [],
+        language: room?.language ?? [],
+        level: room?.level || undefined,
+        maximumPeople: room?.maximumPeople || 2,
       },
     });
-  
-    async function onSubmit(values: z.infer<typeof formSchema>) {
-      const room = await createRoomAction(values);
-      toast({
-        title: "Room Created",
-        description: "Your room was successfully created",
-      });
-      router.push(`/rooms/${room.id}`);
-    }
+
+    const handleSubmit = (values: z.infer<typeof formSchema>) => {
+        const roomData: Room = {
+            ...values,
+            id: room?.id || "", // Use an existing id or a placeholder
+            userId: room?.userId || "", // Provide a default or existing userId
+            description: values.description || null,
+            language: values.language.length > 0 ? values.language : null,
+            level: values.level || null,
+            maximumPeople: values.maximumPeople || null,
+        };
+        onSubmit(roomData);
+    };
   
     const addTag = (tag: string) => {
       if (tag && !tags.includes(tag)) {
@@ -104,7 +108,7 @@ export function CreateRoomForm() {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
                 name="name"
@@ -241,7 +245,7 @@ export function CreateRoomForm() {
           </Form>
         </CardContent>
         <CardFooter>
-          <Button type="submit" onClick={form.handleSubmit(onSubmit)}>Create Room</Button>
+          <Button type="submit" onClick={form.handleSubmit(handleSubmit)}>Create Room</Button>
         </CardFooter>
       </Card>
         </div>

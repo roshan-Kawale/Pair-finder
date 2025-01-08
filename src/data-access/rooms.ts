@@ -1,15 +1,19 @@
 import { db } from "@/db";
 import { Room, room } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { like } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
 
 export async function getRooms(search: string | undefined) {
-  
-  const where = search ? like(room.tags, `%${search}%`) : undefined;
+  const where = search
+    ? or(
+        sql`${search} = ANY(${room.tags})`,
+        sql`${search} = ANY(${room.language})`
+      )
+    : undefined;
   const rooms = await db.query.room.findMany({
     where,
-  })
+  });
   return rooms;
 }
 
