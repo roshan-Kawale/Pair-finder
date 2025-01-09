@@ -57,7 +57,7 @@ export function SearchBar() {
               <FormControl>
                 <Input
                   {...field}
-                  className="w-[440px]"
+                  className="w-[34vw]"
                   placeholder="Filter rooms by keywords, such as typescript, next.js, python"
                 />
               </FormControl>

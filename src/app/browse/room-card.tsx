@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
+
 import {
   Card,
   CardContent,
@@ -20,24 +20,9 @@ export function RoomCard({ room }: { room: Room }) {
   const currentPeople = 2;
   const isFull = currentPeople >= room.maximumPeople!;
   return (
-    // <Card>
-    //   <CardHeader>
-    //     <CardTitle>{room.name}</CardTitle>
-    //     <CardDescription>{room.description}</CardDescription>
-    //   </CardHeader>
-    //   <CardContent className="flex flex-col gap-4">
-    //     <TagsList tags={room.tags} />
-    //   </CardContent>
-    //   <CardFooter>
-    //     <Button asChild>
-    //       <Link href={`/rooms/${room.id}`}>Join Room</Link>
-    //     </Button>
-    //   </CardFooter>
-    // </Card>
-
-    <Card className="w-full max-w-2xl">
+  <Card className="w-[80vw] md:w-[40vw]">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">{room.name}</CardTitle>
+        <CardTitle className="text-2xl flexx font-bold">{room.name}</CardTitle>
         <CardDescription>{room.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
