@@ -14,15 +14,15 @@ export default async function RoomPage(props: { params: { roomId: string } }) {
   }
 
   return (
-    <div className="grid grid-cols-4 min-h-screen">
-      <div className="col-span-3 p-4 pr-2">
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 min-h-screen">
+    <div className="grid sm:grid-cols-4 items-center min-h-screen">
+      <div className="sm:col-span-3 sm:p-4 sm:pr-2 w-[85vw] sm:w-full">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4">
           <DevFinderVideo room={room} />
         </div>
       </div>
-      <div className="col-span-1 p-4 pl-2">
+      <div className="sm:col-span-1 sm:p-4 sm:pl-2">
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 flex flex-col gap-4">
-          <h1 className="text-base">{room?.name}</h1>
+          <h1 className="text-base flex flex-wrap">{room?.name}</h1>
 
           <p className="text-base text-gray-600">{room?.description}</p>
 

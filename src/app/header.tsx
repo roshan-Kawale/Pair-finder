@@ -125,7 +125,7 @@ export function Header() {
   return (
     <header onMouseLeave={()=>setIsDrawerOpen(false)} className="sticky top-0 z-50 w-full p-4">
       <div  className={`container flex gap-4 h-12 py-6 max-w-screen-2xl border-2 rounded-2xl items-center bg-fd-background/80 backdrop-blur-lg border-b border-fd-foreground/10 transition-colors ${isDrawerOpen ? "rounded-b-none" : ""}`}>
-        <div className="flex items-center gap-2 mr-4">
+        <div className="flex items-center gap-2">
           <Link
             href="/"
             className="flex gap-2 items-center text-xl hover:underline"
@@ -134,6 +134,7 @@ export function Header() {
               src="/logo.png"
               width="60"
               height="60"
+              className="w-8 h-8"
               alt="the application icon of a magnifying glass"
             />
             PairFinder
@@ -141,8 +142,7 @@ export function Header() {
         </div>
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-          {isLoggedIn && (
-            <>
+         
               <Link className="hover:underline" href="/browse">
                 Browse
               </Link>
@@ -150,8 +150,7 @@ export function Header() {
               <Link className="hover:underline" href="/your-rooms">
                 Your Rooms
               </Link>
-            </>
-          )}
+          
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
@@ -175,9 +174,9 @@ export function Header() {
             onMouseEnter={() => setIsDrawerOpen(true)}
           >
             {isDrawerOpen ? (
-              <ChevronUp className="h-7 w-7" />
+              <ChevronUp onTouchStart={() => setIsDrawerOpen(false)} className="h-7 w-7" />
             ) : (
-              <ChevronDown className="h-7 w-7" />
+              <ChevronDown onTouchStart={() => setIsDrawerOpen(true)} className="h-7 w-7" />
             )}
             <span className="sr-only">Toggle menu</span>
           </Button>
@@ -191,11 +190,11 @@ export function Header() {
           isDrawerOpen ? "h-[calc(100vh-3.5rem)]" : "h-0"
         )}
         >
-        <div onMouseLeave={()=>setIsDrawerOpen(false)} className="container h-48 py-4 border-2 border-t-0 rounded-2xl rounded-t-none overflow-y-auto bg-fd-background/80 backdrop-blur-lg border-b border-fd-foreground/10 transition-colors">
+        <div onMouseLeave={()=>setIsDrawerOpen(false)} 
+        className="container h-48 py-4 border-2 border-t-0 rounded-2xl rounded-t-none overflow-y-auto bg-fd-background/80 backdrop-blur-lg border-b border-fd-foreground/10 transition-colors">
         
         <nav className="flex flex-col space-y-4 mt-4">
-                {isLoggedIn && (
-                  <>
+               
                     <Link className="hover:underline" href="/browse">
                       Browse
                     </Link>
@@ -203,8 +202,8 @@ export function Header() {
                     <Link className="hover:underline" href="/your-rooms">
                       Your Rooms
                     </Link>
-                  </>
-                )}
+             
+              
               </nav>
               <div className="flex mt-4">
                 <Link href="https://github.com/roshan-Kawale/Pair-finder">
